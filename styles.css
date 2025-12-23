@@ -1,0 +1,112 @@
+/* styles.css – Retro glitch vibe for Slow Mirror */
+* { box-sizing: border-box; }
+
+body, html {
+  margin: 0; padding: 0; height: 100%;
+  background: #0a0a0a;
+  color: #0ff;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  padding: 2rem;
+  border: 3px solid #0ff;
+  border-radius: 16px;
+  box-shadow: 
+    0 0 20px #0ff,
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  background: rgba(0, 10, 20, 0.8);
+  max-width: 720px;
+  width: 90%;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem;
+  text-shadow: 0 0 10px #0ff;
+  letter-spacing: 3px;
+  animation: flicker 3s infinite alternate;
+}
+
+video, canvas#delayed {
+  width: 100%;
+  max-width: 640px;
+  border: 2px solid #0ff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #0ff;
+  image-rendering: pixelated; /* retro feel */
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 14px 32px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: transparent;
+  color: #0ff;
+  border: 2px solid #0ff;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px #0ff;
+}
+
+button:hover:not(:disabled) {
+  background: #0ff;
+  color: #000;
+  box-shadow: 0 0 20px #0ff;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  animation: pulse 2s infinite;
+}
+
+/* Glitch text animation */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; text-shadow: 0 0 20px #0ff; }
+}
+
+/* Pulse for recording state */
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px #0ff; }
+  50% { box-shadow: 0 0 25px #f0f, 0 0 35px #f0f; }
+  100% { box-shadow: 0 0 10px #0ff; }
+}
+
+/* Scanline effect over video */
+.video-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+.video-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
